@@ -1,0 +1,14 @@
+Nomads is FLOSS. This grants you, the user, specific rights over it.
+
+This project is released as a whole under GPLv3. You will find a copy of this license in the same folder this file is in.
+
+More specifically:
+- all contents in the Nomads-data repository (i.e. the data submodule) are released under CC-BY-SA v4.
+- all other content, including e.g. source/ and subdirectories, is released under GPLv3
+In both cases, subdirectories may contain a LICENSE.txt file adding other precisions.
+
+CC-BY-SA v4 refers to (Creative Commons Attribution-ShareAlike 4.0 International License). To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+For any claim and/or requirements, you may contact
+Wraitii (Lancelot de Ferrière le Vayer)
+lancelot.deferriere+Nomads@gmail.com

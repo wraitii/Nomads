@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://data/world.tres" type="World" id=1]
+[ext_resource path="res://source/VC.gd" type="Script" id=2]
+[ext_resource path="res://source/SelectionPanel.gd" type="Script" id=3]
+
+[node name="GameGUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VC" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="VC"]
+size = Vector2( 1440, 900 )
+size_override_stretch = true
+world = ExtResource( 1 )
+handle_input_locally = false
+render_target_update_mode = 3
+physics_object_picking = true
+
+[node name="SelectionPanel" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -220.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = 320.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Selection" type="Label" parent="SelectionPanel"]
+anchor_right = 1.0
+margin_top = 10.0
+text = "Selection"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Debug" type="Label" parent="SelectionPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 30.0
+text = "This is some Text"
+__meta__ = {
+"_edit_use_anchors_": false
+}
