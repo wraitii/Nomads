@@ -58,4 +58,5 @@ func _unhandled_key_input(event):
 	food_piece.add_interface_by_script("AreaDetection.gd")
 	food_piece.add_interface_by_script("Selectable.gd")
 	food_piece.add_interface_by_script("InfiniteCarry.gd")
+	food_piece.add_interface_by_script("LifecycleSupply.gd")
 	food_piece._i("carry")._store('food', 5)
