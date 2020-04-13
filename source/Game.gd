@@ -42,7 +42,7 @@ func _ready():
 	character.add_interface_by_script("ResourceConsumer.gd")
 	character.add_interface_by_script("Selectable.gd")
 	character.add_interface_by_script("Health.gd")
-	character.add_interface_by_script("ResourceGatherer.gd")
+	character.add_interface_by_script("Gatherer.gd")
 	character.add_interface_by_script("InfiniteCarry.gd")
 	
 	#character.translation = Vector3(0,1,0)
@@ -57,4 +57,5 @@ func _unhandled_key_input(event):
 	food_piece._i("physics")._body.translation = Vector3(rand_range(-50, 50),0,rand_range(-50, 50))
 	food_piece.add_interface_by_script("AreaDetection.gd")
 	food_piece.add_interface_by_script("Selectable.gd")
-	food_piece.add_interface_by_script("ResourceSupply.gd")
+	food_piece.add_interface_by_script("InfiniteCarry.gd")
+	food_piece._i("carry")._store('food', 5)

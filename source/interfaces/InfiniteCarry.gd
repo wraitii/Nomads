@@ -18,7 +18,7 @@ func _store(item_type, amount):
 func _unload(item_type, amount):
 	if not (item_type in _carrying):
 		return false
-	if _carrying[item_type] < amount:
+	if _carrying[item_type] + 0.001 < amount:
 		return false
 	_carrying[item_type] -= amount;
 	if _carrying[item_type] <= 0:
@@ -35,3 +35,5 @@ func _get_stored(item_type):
 		return 0
 	return _carrying[item_type]
 	
+func _item_types():
+	return _carrying.keys()

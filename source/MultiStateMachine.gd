@@ -58,7 +58,7 @@ func get_slot_state(slot):
 		return null
 	if _state_slots[slot].empty():
 		return null
-	return _state_slots[slot][0].identifier()
+	return _state_slots[slot][0]
 
 # Pushes a new state in front of the current state, inactivating the current state
 # but it will be resumed once this new state is popped.

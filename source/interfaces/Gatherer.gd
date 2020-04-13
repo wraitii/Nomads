@@ -1,10 +1,10 @@
 extends 'res://source/Interface.gd'
 
-## ResourceGatherer
+## Gatherer
 # Allows entities to pick up resources and store it in their carry.
 # Entities need a carry for this to mean something.
 
-const _INTERFACE = "resource_gatherer"
+const _INTERFACE = "gatherer"
 
 func _init(p, data=null).(p, data):
 	_entity.stats.add('rg_1', {"gather_food": 1})
@@ -15,12 +15,12 @@ func _get_possible_actions(target):
 	return []
 
 # Returns whether an entity can gather from something,
-# not considering carry limitations (TODO?)
-func _can_gather(target):
-	var supply = target._i("resource_supply")
+# not considering own carry limitations (TODO?)
+func _can_gather(target, item_type = null):
+	var supply = target._i("carry")
 	if not supply or not _entity._i("carry"):
 		return false
-	for res in supply._current_supply:
+	for res in supply._item_types():
 		if _entity.stats['gather_' + res]:
 			return true
 	return false
@@ -41,7 +41,7 @@ class Gathering extends 'res://source/MSMState.gd':
 		return false
 
 	func enter_state():
-		if not itf("resource_gatherer")  or not itf("resource_gatherer")._can_gather(order_data.target):
+		if not itf("gatherer")  or not itf("gatherer")._can_gather(order_data.target):
 			return fsm.ORDER.FAILURE
 		
 		if not in_range(order_data.target):
@@ -54,18 +54,18 @@ class Gathering extends 'res://source/MSMState.gd':
 		return fsm.ORDER.OK
 
 	func _physics_process(delta):
-		if not itf("resource_gatherer") or not itf("resource_gatherer")._can_gather(order_data.target):
+		if not itf("gatherer") or not itf("gatherer")._can_gather(order_data.target):
 			pop_if_active()
 			return fsm.ORDER.IGNORE
 		
-		for res in order_data.target._i("resource_supply")._current_supply:
-			if not 'gather_' + res in parent.stats:
+		for item_type in order_data.target._i("carry")._item_types():
+			if not 'gather_' + item_type in parent.stats:
 				continue
-			var amount = parent.stats['gather_' + res] / (1.0/delta)
-			var available_amt = order_data.target._i("resource_supply")._current_supply[res]
+			var amount = parent.stats['gather_' + item_type] / (1.0/delta)
+			var available_amt = order_data.target._i("carry")._get_stored(item_type)
 			amount = min(amount, available_amt)
-			itf("carry")._store('ress_' + res, amount)
-			order_data.target._i("resource_supply")._current_supply[res] -= amount
+			itf("carry")._store(item_type, amount)
+			order_data.target._i("carry")._unload(item_type, amount)
 		return fsm.ORDER.IGNORE
 
 

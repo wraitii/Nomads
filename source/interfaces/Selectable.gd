@@ -2,20 +2,28 @@ extends 'res://source/Interface.gd'
 
 const _INTERFACE = "selectable"
 
+var _select_area = null
+var _selection_aura
+
 func _init(p, data=null).(p, data):
-	var itf = p._i('area_detection')
-	if itf:
-		itf = itf._area
-	else:
-		itf = p._i('physics')
-		if itf:
-			itf = itf._body
-		else:
-			return
+	var _body = p.get_parent()
+	assert (_body is Spatial)
+	_select_area = Area.new()
+	var so = _select_area.create_shape_owner(_select_area)
+	var shape = SphereShape.new()
+	shape.radius = 2.5
+	_select_area.shape_owner_add_shape(so, shape)
+	_body.add_child(_select_area)
+
+	_selection_aura = CSGSphere.new()
+	_selection_aura.radius = 2.5
+	_selection_aura.visible = false
+	_selection_aura.material = preload('res://data/materials/selection.tres')
+	_select_area.add_child(_selection_aura)
 	
-	itf.connect("input_event", self, "_input_event")
-	itf.connect("mouse_entered", self, "_mouse_entered")
-	itf.connect("mouse_exited", self, "_mouse_exited")
+	_select_area.connect("input_event", self, "_input_event")
+	_select_area.connect("mouse_entered", self, "_mouse_entered")
+	_select_area.connect("mouse_exited", self, "_mouse_exited")
 
 func _input_event(camera, event, click_position, click_normal, shape_idx):
 	if event.is_action_released("object_select"):
@@ -24,7 +32,9 @@ func _input_event(camera, event, click_position, click_normal, shape_idx):
 		GS.selection.do_action(_entity)
 
 func _mouse_entered():
+	_selection_aura.visible = true
 	GS.selection.current_possible_action = GS.selection.get_possible_action(_entity)
 
 func _mouse_exited():
+	_selection_aura.visible = false
 	GS.selection.current_possible_action = null
