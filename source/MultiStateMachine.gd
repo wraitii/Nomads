@@ -53,6 +53,24 @@ func _init_state(state_identifier, data=null):
 	state.fsm = self
 	return state
 
+func get_slot_state(slot):
+	if not (slot in _state_slots):
+		return null
+	if _state_slots[slot].empty():
+		return null
+	return _state_slots[slot][0].identifier()
+
+# Pushes a new state in front of the current state, inactivating the current state
+# but it will be resumed once this new state is popped.
+# This is implemented by duplicating the current state which is a terrible idea.
+# Keeps the queue alive.
+func push_state_front(state_id, data=null):
+	var slot = _state_slots[_slot_for_state[state_id]]
+	if slot.empty():
+		return switch_state(state_id, data)
+	slot.insert(1, _init_state(slot[0].identifier(), slot[0].order_data))
+	return switch_state(state_id, data)
+
 # Insert a new state after the current state and pop, entering that state.
 # Keeps the queue alive.
 func switch_state(state_id, data=null):
@@ -111,6 +129,13 @@ func process(fun, args = []):
 			return ret
 	
 	return ORDER.IGNORE
+
+func clear():
+	for slot in _state_slots:
+		if not _state_slots[slot].empty():
+			_state_slots[slot][0]._leave_state()
+		_state_slots[slot] = []
+	_slot_default_state = {}
 
 func _physics_process(delta):
 	process('_physics_process', [delta])

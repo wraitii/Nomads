@@ -5,13 +5,25 @@ var current_possible_action = null
 
 signal selection_changed
 
+func _unsubscribe_to_selection():
+	for ent in selection:
+		ent.disconnect('entity_destroyed', self, '_on_destroyed')
 
+func _subscribe_to_selection():
+	for ent in selection:
+		ent.connect('entity_destroyed', self, '_on_destroyed')
+
+func _on_destroyed(ent):
+	selection.erase(ent)
 
 func replace(object):
+	_unsubscribe_to_selection()
 	selection = [object]
+	_subscribe_to_selection()
 	emit_signal("selection_changed")
 
 func clear():
+	_unsubscribe_to_selection()
 	selection = []
 	emit_signal("selection_changed")
 

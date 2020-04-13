@@ -41,7 +41,10 @@ func _ready():
 	character.add_interface_by_script("InertialessMotion.gd")
 	character.add_interface_by_script("ResourceConsumer.gd")
 	character.add_interface_by_script("Selectable.gd")
-
+	character.add_interface_by_script("Health.gd")
+	character.add_interface_by_script("ResourceGatherer.gd")
+	character.add_interface_by_script("InfiniteCarry.gd")
+	
 	#character.translation = Vector3(0,1,0)
 
 func _unhandled_key_input(event):

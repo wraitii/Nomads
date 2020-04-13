@@ -13,6 +13,11 @@ func update():
 	tx += "Selected:\n"
 	for item in GS.selection.selection:
 		tx += str(item) + '\n'
+		for _i in item._interfaces:
+			var db = item._interfaces[_i]._debug()
+			if db:
+				tx += "Interface " + _i + '\n'
+				tx += "  " + db + '\n'
 		for st in item.fsm._state_slots:
 			tx += "Slot " + st + '\n'
 			if not item.fsm._state_slots[st].empty():

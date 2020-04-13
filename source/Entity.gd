@@ -3,6 +3,9 @@ extends Node
 const FSM = preload('res://source/MultiStateMachine.gd')
 const Stats = preload('res://source/Stats.gd')
 
+
+signal entity_destroyed(ent)
+
 var _interfaces = {}
 
 var fsm = FSM.new(self)
@@ -29,6 +32,15 @@ func get_possible_actions(target):
 func _i(x):
 	if x in _interfaces:
 		return _interfaces[x]
+
+# Delete an entity
+func destroy():
+	emit_signal("entity_destroyed", self)
+	fsm.clear()
+	for _i in _interfaces:
+		_interfaces[_i]._deinit()
+	get_parent().call_deferred("remove_child", self)
+	call_deferred("queue_delete", self)
 
 ## Below are some useful shortcuts
 

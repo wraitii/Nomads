@@ -27,3 +27,9 @@ func _register_with_fsm():
 func _init(ent, data=null):
 	_entity = ent
 	_register_with_fsm()
+
+func _deinit():
+	pass
+
+func _debug():
+	return null

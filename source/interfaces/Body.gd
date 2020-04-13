@@ -19,3 +19,10 @@ func _init(p, data).(p, data):
 	p.get_parent().add_child(_body)
 	p.get_parent().remove_child(p)
 	_body.add_child(p)
+
+func _deinit():
+	var tl = _body.get_parent()
+	_entity.get_parent().remove_child(_entity)
+	tl.remove_child(_body)
+	tl.add_child(_entity)
+	
