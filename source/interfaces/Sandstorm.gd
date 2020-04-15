@@ -18,13 +18,16 @@ func _init(p, data=null).(p, data):
 	var angle = rand_range(PI, -PI)
 	_vel = Vector2(cos(angle), sin(angle)) * rand_range(0.4, 1.6) * 2
 
-	for i in range(randi() % 3 + 4):
-		var sub_storm = _Entity.new()
-		p.add_child(sub_storm)
-		sub_storm.add_interface_by_script("Body.gd", { "scene": "SandStorm" })
-		sub_storm.add_interface_by_script("TrampleDamage.gd")
-		sub_storm._i("physics")._move_by(rand_range(-5, 5), rand_range(-5, 5))
-		_sub_storms.append(sub_storm)
+	var width = rand_range(3,6)
+	var height = rand_range(3,6)
+	for x in width:
+		for z in height:
+			var sub_storm = _Entity.new()
+			p.add_child(sub_storm)
+			sub_storm.add_interface_by_script("Body.gd", { "scene": "SandStorm" })
+			sub_storm.add_interface_by_script("TrampleDamage.gd")
+			sub_storm._i("physics")._move_by(x*10 + rand_range(-5, 5), z * 10 + rand_range(-5, 5))
+			_sub_storms.append(sub_storm)
 
 
 func _physics_process(delta):
