@@ -5,11 +5,11 @@ const Stats = preload('res://source/Stats.gd')
 func _init():
 	var st = Stats.new()
 	
-	st.modifiers['test'] = Stats.Modifier.new({
+	st.add('test', {
 		"route_a": 10
 	})
 
-	st.modifiers['test_2'] = Stats.Modifier.new({
+	st.add('test_2', {
 		"route": "route_a",
 		"effect": { "add": 10 },
 		"priority": 1

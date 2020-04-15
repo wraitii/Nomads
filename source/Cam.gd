@@ -25,7 +25,7 @@ func _physics_process(delta):
 	if not track:
 		look_at_from_position(position + basis.xform(_lookat_delta()), position, Vector3(0,1,0))
 	else:
-		look_at_from_position(track.translation + basis.xform(_lookat_delta()), track.translation, Vector3(0,1,0))
+		look_at_from_position(track.body.translation + basis.xform(_lookat_delta()), track.body.translation, Vector3(0,1,0))
 
 func _unhandled_input(event):
 	if event is InputEventPanGesture:

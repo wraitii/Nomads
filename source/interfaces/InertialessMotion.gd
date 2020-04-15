@@ -67,13 +67,12 @@ class Moving extends 'res://source/MSMState.gd':
 		if target == null:
 			return fsm.ORDER.IGNORE
 		
-		if (target - parent.translation).length() < 2:
+		if (target - parent.body.translation).length() < 2:
 			var ret = fsm.process("on_at_destination")
 			if ret == fsm.ORDER.IGNORE:
 				pop_if_active()
 			return fsm.ORDER.IGNORE
-
-		var dir = (target - parent.translation).normalized() * 10
+		var dir = (target - parent.body.translation).normalized() * 10
 		parent.body.move_and_collide(Vector3(0, -1, 0), false)
 		parent.body.move_and_slide_with_snap(dir, Vector3(0,1,0), Vector3(0,1,0), false, 4, 1.0, false)
 		

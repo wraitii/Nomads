@@ -47,7 +47,7 @@ func _ready():
 
 	var ss = Entity.new()
 	GS.world.add_child(ss)
-	character.add_interface_by_script("Sandstorm.gd")
+	ss.add_interface_by_script("Sandstorm.gd")
 	
 func _unhandled_key_input(event):
 	if not event.is_action_released('create_food'):

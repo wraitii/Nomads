@@ -1,4 +1,4 @@
-extends Node
+extends Spatial
 
 const FSM = preload('res://source/MultiStateMachine.gd')
 const Stats = preload('res://source/Stats.gd')
@@ -44,14 +44,10 @@ func destroy():
 
 ## Below are some useful shortcuts
 
-var translation setget fake_setter, get_translation
 var body setget fake_setter, get_body
 
 func fake_setter(x):
 	assert(false, "Not implemented")
-
-func get_translation():
-	return _i('physics')._body.translation
 
 func get_body():
 	return _i('physics')._body
