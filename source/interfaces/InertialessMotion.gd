@@ -74,7 +74,8 @@ class Moving extends 'res://source/MSMState.gd':
 			return fsm.ORDER.IGNORE
 
 		var dir = (target - parent.translation).normalized() * 10
-		parent.body.move_and_slide_with_snap(dir, Vector3(0,1,0), Vector3(0,1,0), false, 4, 0.8, false)
+		parent.body.move_and_collide(Vector3(0, -1, 0), false)
+		parent.body.move_and_slide_with_snap(dir, Vector3(0,1,0), Vector3(0,1,0), false, 4, 1.0, false)
 		
 		return fsm.ORDER.IGNORE
 

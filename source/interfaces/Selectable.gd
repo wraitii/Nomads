@@ -28,6 +28,8 @@ func _init(p, data=null).(p, data):
 func _input_event(camera, event, click_position, click_normal, shape_idx):
 	if event.is_action_released("object_select"):
 		GS.selection.replace(_entity)
+	elif event.is_action("object_select") and event.doubleclick:
+		GS.world.get_node('GameScene/Camera').track = _entity
 	elif event.is_action_released("object_order"):
 		GS.selection.do_action(_entity)
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://data/world.tres" type="World" id=1]
 [ext_resource path="res://source/VC.gd" type="Script" id=2]
 [ext_resource path="res://source/SelectionPanel.gd" type="Script" id=3]
+[ext_resource path="res://source/GameScene.tscn" type="PackedScene" id=4]
 
 [node name="GameGUI" type="Control"]
 anchor_right = 1.0
@@ -27,6 +28,10 @@ world = ExtResource( 1 )
 handle_input_locally = false
 render_target_update_mode = 3
 physics_object_picking = true
+shadow_atlas_size = 4096
+shadow_atlas_quad_0 = 1
+
+[node name="GameScene" parent="VC/Viewport" instance=ExtResource( 4 )]
 
 [node name="SelectionPanel" type="Panel" parent="."]
 anchor_left = 1.0

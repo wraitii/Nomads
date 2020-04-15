@@ -5,41 +5,43 @@ extends StaticBody
 const mat = preload('res://data/materials/desert_ground.tres')
 
 const SCALE = 100
+const VSCALE = SCALE/50
+const POINTS = 10
 
-func _ready():
+var piece_x = 0
+var piece_y = 0
+
+func _generate(map_gen):
 	var vertices = PoolVector3Array()
 	var normals = PoolVector3Array()
 	var uvs = PoolVector2Array()
 	var indices = PoolIntArray()
 	
-	var pts = 10
-	for x in range(0,pts):
-		for z in range(0,pts):
-			vertices.push_back(Vector3(x - pts/2.0, 0, z - pts/2.0) * SCALE / pts)
-			normals.push_back(Vector3(0.0,1.0,0))
-			uvs.push_back(Vector2(x,z))
-			
+	var st = SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	st.add_smooth_group(true)
 	
-	for x in range(0,9):
-		for z in range(0,9):
-			indices.push_back(x * 10 + z)
-			indices.push_back((x+1) * 10 + z)
-			indices.push_back(x * 10 + z + 1)
-			indices.push_back(x * 10 + z + 1)
-			indices.push_back((x+1) * 10 + z)
-			indices.push_back((x+1) * 10 + z + 1)
+	for x in range(-1, POINTS+2):
+		for z in range(-1, POINTS+2):
+			st.add_uv(Vector2(x,z))
+			var pt = Vector3(x - POINTS/2.0, 0, z - POINTS/2.0) * (SCALE / 2) / (POINTS/2)
+			pt.y = map_gen.get_height(piece_x, x, piece_y, z)*VSCALE
+			st.add_vertex(pt)
+
+	# Skip the surrounding vertices which are there to generate correct normals
+	for x in range(1,POINTS+1):
+		for z in range(1,POINTS+1):
+			st.add_index(x * (POINTS+3) + z)
+			st.add_index((x+1) * (POINTS+3) + z)
+			st.add_index(x * (POINTS+3) + z + 1)
+			st.add_index(x * (POINTS+3) + z + 1)
+			st.add_index((x+1) * (POINTS+3) + z)
+			st.add_index((x+1) * (POINTS+3) + z + 1)
 	
+	st.generate_normals()
 	
 	# Initialize the ArrayMesh.
-	var arr_mesh = ArrayMesh.new()
-	var arrays = []
-	arrays.resize(ArrayMesh.ARRAY_MAX)
-	arrays[ArrayMesh.ARRAY_VERTEX] = vertices
-	arrays[ArrayMesh.ARRAY_NORMAL] = normals
-	arrays[ArrayMesh.ARRAY_TEX_UV] = uvs
-	arrays[ArrayMesh.ARRAY_INDEX] = indices
-	# Create the Mesh.
-	arr_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	var arr_mesh = st.commit()
 	var m = MeshInstance.new()
 	m.mesh = arr_mesh
 	var shape = m.mesh.create_trimesh_shape()
@@ -57,5 +59,7 @@ func _input_event(camera, event, click_position, click_normal, shape_idx):
 			GS.selection.do_action(click_position)
 	if event.is_action_released("object_select"):
 		GS.selection.clear()
+	elif event.is_action("object_select") and event.doubleclick:
+		GS.world.get_node('GameScene/Camera').move_to(click_position)
 
 	GS.selection.current_possible_action = "move_to_position"
