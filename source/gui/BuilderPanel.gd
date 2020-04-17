@@ -25,5 +25,11 @@ func update():
 	for building in items.keys():
 		var n = $BuildingIcon.duplicate()
 		n.get_node("Building").text = building
+		n.get_node("Building").set_meta("building", building)
 		n.visible = true
+		n.get_node("Building").connect("button_up", self, "on_click", [self])
 		$GridContainer.add_child(n)
+
+func on_click(button):
+	var bd = button.get_meta("building")
+	GS.action.action_state.switch_state("gui_action_building", [bd])

@@ -16,7 +16,7 @@ func tooltip():
 func _physics_process(delta):
 	for action in selection_actions:
 		if len(action) > 3 and action[3]:
-			selection_actions = get_selection_actions(hovered)
+			selection_actions = get_selection_actions(GS.action.hovered)
 			return fsm.ORDER.IGNORE
 	return fsm.ORDER.IGNORE
 
@@ -28,9 +28,9 @@ func on_input(event):
 		if not hovered_itf("selection_aura"):
 			return fsm.ORDER.IGNORE
 		if event.doubleclick:
-			GS.world.get_node('GameScene/Camera').track = hovered._entity
+			GS.world.get_node('GameScene/Camera').track = GS.action.hovered._entity
 		else:
-			GS.selection.replace(hovered._entity)
+			GS.selection.replace(GS.action.hovered._entity)
 		return fsm.ORDER.OK
 
 	if event.is_action_released("object_order"):

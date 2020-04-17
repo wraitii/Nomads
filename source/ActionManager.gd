@@ -10,10 +10,13 @@ extends Control
 # This is implemented as an FSM for large context switches,
 # but note that selection is important state regardless.
 
-
 const FSM = preload('res://source/MultiStateMachine.gd')
 
 var action_state = FSM.new(self)
+
+# This is the 'actionnable' interface of the object being hovered.
+var hovered = null
+
 
 func _init():
 	var actions = Directory.new()
@@ -32,10 +35,13 @@ func _unhandled_input(event):
 	action_state.process('on_input', [event])
 
 func set_hovered(hov):
-	action_state.process('set_hovered', [hov])
+	hovered = hov
+	return action_state.process("on_hovered_change")
 
 func leave_hovered(hov):
-	action_state.process('leave_hovered', [hov])
+	if hovered == hov:
+		hovered = null
+		return action_state.process("on_hovered_change")
 
 func on_selection_change():
 	action_state.process("on_selection_change")

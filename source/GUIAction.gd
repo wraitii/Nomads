@@ -6,9 +6,6 @@ class_name GUIAction
 # - hovered keeps track of the object being hovered
 # - selection_actions keeps tracks of possible actions over objects.
 
-# This is the 'actionnable' interface of the object being hovered.
-var hovered = null
-
 # Ordered list of possible selection actions
 var selection_actions = []
 
@@ -35,9 +32,9 @@ func get_selection_actions(hovered):
 	return actions
 
 func hovered_itf(itf):
-	if not hovered or not hovered._entity:
+	if not GS.action.hovered or not GS.action.hovered._entity:
 		return null
-	return hovered._entity._i(itf)
+	return GS.action.hovered._entity._i(itf)
 
 ################################################
 ### Functions below are called using 'process'
@@ -45,16 +42,10 @@ func on_input(event):
 	return fsm.ORDER.OK
 	
 func on_selection_change():
-	selection_actions = get_selection_actions(hovered)
+	selection_actions = get_selection_actions(GS.action.hovered)
 	return fsm.ORDER.OK
 
-func set_hovered(hov):
-	hovered = hov
-	selection_actions = get_selection_actions(hovered)
+func on_hovered_change():
+	selection_actions = get_selection_actions(GS.action.hovered)
 	return fsm.ORDER.OK
 
-func leave_hovered(hov):
-	if hovered == hov:
-		hovered = null
-		selection_actions = get_selection_actions(hovered)
-	return fsm.ORDER.OK

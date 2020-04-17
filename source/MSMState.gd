@@ -45,10 +45,10 @@ func leave_state():
 
 func pop_if_active():
 	if fsm._state_slots[slot()].empty():
-		return
+		return fsm.ORDER.IGNORE
 	if fsm._state_slots[slot()][0] != self:
-		return
-	fsm.pop_slot(fsm._state_slots[slot()])
+		return fsm.ORDER.IGNORE
+	return fsm.pop_slot(fsm._state_slots[slot()])
 
 func itf(interface = null):
 	if not interface:
