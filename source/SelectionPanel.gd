@@ -8,8 +8,9 @@ func _process(delta):
 
 func update():
 	var tx = ""
-	if GS.selection.current_possible_action:
-		tx += GS.selection.current_possible_action + '\n'
+	var action_state = GS.action.action_state.get_slot_state('gui_action')
+	if action_state and action_state.selection_actions:
+		tx += str(action_state.selection_actions) + '\n'
 	tx += "Selected:\n"
 	for item in GS.selection.selection:
 		tx += str(item) + '\n'

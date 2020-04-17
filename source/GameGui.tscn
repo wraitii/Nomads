@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://data/world.tres" type="World" id=1]
 [ext_resource path="res://source/VC.gd" type="Script" id=2]
 [ext_resource path="res://source/SelectionPanel.gd" type="Script" id=3]
 [ext_resource path="res://source/GameScene.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/gui/BuilderPanel.tscn" type="PackedScene" id=5]
 
 [node name="GameGUI" type="Control"]
 anchor_right = 1.0
@@ -62,3 +63,6 @@ text = "This is some Text"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="BuilderPanel" parent="." instance=ExtResource( 5 )]
+visible = false

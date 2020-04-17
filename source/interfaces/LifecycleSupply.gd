@@ -1,4 +1,4 @@
-extends 'res://source/Interface.gd'
+extends ComponentInterface
 
 ## Mimics the life-cycle of a supply.
 # Supplies disappear when the last of their carry disappears

@@ -1,4 +1,4 @@
-extends 'res://source/Interface.gd'
+extends ComponentInterface
 
 ## ResourceConsumer
 # This interface makes entities require a steady supply

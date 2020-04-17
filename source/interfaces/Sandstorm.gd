@@ -1,4 +1,4 @@
-extends 'res://source/Interface.gd'
+extends ComponentInterface
 
 ## Sandstorm component.
 # Manages a bunch of hurting sub-components.

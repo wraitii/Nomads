@@ -1,4 +1,4 @@
-extends 'res://source/Interface.gd'
+extends ComponentInterface
 
 ## Body
 # Provides a physical emanation of an object.

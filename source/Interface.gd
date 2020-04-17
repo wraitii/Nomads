@@ -1,4 +1,5 @@
 extends Node
+class_name ComponentInterface
 
 const _FSM = preload('res://source/MultiStateMachine.gd')
 var _entity = null

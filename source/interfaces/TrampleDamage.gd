@@ -1,4 +1,4 @@
-extends 'res://source/Interface.gd'
+extends ComponentInterface
 
 ## TrampleDamage
 # Damages all bodies inside the given area.

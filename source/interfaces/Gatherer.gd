@@ -1,4 +1,4 @@
-extends 'res://source/Interface.gd'
+extends ComponentInterface
 
 ## Gatherer
 # Allows entities to pick up resources and store it in their carry.

@@ -1,4 +1,4 @@
-extends 'res://source/Interface.gd'
+extends ComponentInterface
 
 ## AreaDetection
 # Provides an area to detect collisions with for the object.

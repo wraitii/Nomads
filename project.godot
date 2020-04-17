@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "ComponentInterface",
+"language": "GDScript",
+"path": "res://source/Interface.gd"
+}, {
+"base": "Reference",
+"class": "GUIAction",
+"language": "GDScript",
+"path": "res://source/GUIAction.gd"
+} ]
 _global_script_class_icons={
-
+"ComponentInterface": "",
+"GUIAction": ""
 }
 
 [application]

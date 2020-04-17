@@ -52,14 +52,15 @@ func _generate(map_gen):
 	add_child(m)
 
 func _input_event(camera, event, click_position, click_normal, shape_idx):
-	if event.is_action_released("object_order"):
-		if GS.selection.empty():
-			pass
-		for item in GS.selection.selection:
-			GS.selection.do_action(click_position)
-	if event.is_action_released("object_select"):
-		GS.selection.clear()
-	elif event.is_action("object_select") and event.doubleclick:
-		GS.world.get_node('GameScene/Camera').move_to(click_position)
-
-	GS.selection.current_possible_action = "move_to_position"
+	pass
+#	if event.is_action_released("object_order"):
+#		if GS.selection.empty():
+#			pass
+#		for item in GS.selection.selection:
+#			GS.selection.do_action(click_position)
+#	if event.is_action_released("object_select"):
+#		GS.selection.clear()
+#	elif event.is_action("object_select") and event.doubleclick:
+#		GS.world.get_node('GameScene/Camera').move_to(click_position)
+#
+#	GS.selection.current_possible_action = "move_to_position"

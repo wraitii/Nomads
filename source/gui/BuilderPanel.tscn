@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/gui/BuilderPanel.gd" type="Script" id=1]
+
+[node name="BuilderPanel" type="Panel"]
+anchor_top = 0.2
+anchor_bottom = 1.0
+margin_right = 240.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BuildingIcon" type="Control" parent="."]
+visible = false
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 83.0
+margin_bottom = 10.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Building" type="Button" parent="BuildingIcon"]
+anchor_right = 1.0
+margin_bottom = 60.0
+size_flags_horizontal = 7
+size_flags_vertical = 0
+text = "Shelter"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,4 +1,4 @@
-extends 'res://source/Interface.gd'
+extends ComponentInterface
 
 ## InertialessMotion
 # Objects having this component are able to move like a villager.
