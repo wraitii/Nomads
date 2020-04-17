@@ -13,8 +13,18 @@ func is_default_state():
 func tooltip():
 	return ""
 
+func _physics_process(delta):
+	for action in selection_actions:
+		if len(action) > 3 and action[3]:
+			selection_actions = get_selection_actions(hovered)
+			return fsm.ORDER.IGNORE
+	return fsm.ORDER.IGNORE
+
 func on_input(event):
 	if event.is_action_released("object_select"):
+		if hovered_itf("map"):
+			GS.selection.clear()
+			return fsm.ORDER.OK
 		if not hovered_itf("selection_aura"):
 			return fsm.ORDER.IGNORE
 		if event.doubleclick:
@@ -26,7 +36,7 @@ func on_input(event):
 	if event.is_action_released("object_order"):
 		if selection_actions.empty():
 			return fsm.ORDER.IGNORE
-		GS.selection.do_action(selection_actions[0][0], [hovered._entity])
+		GS.selection.do_action(selection_actions[0][0], selection_actions[0][2])
 		return fsm.ORDER.OK
 	
 	return fsm.ORDER.IGNORE

@@ -19,6 +19,7 @@ func _init(p, data).(p, data):
 			_body = data.type.new()
 	_body.set_name("body")
 	_body.set_meta("entity", p)
+	
 	p.get_parent().add_child(_body)
 	p.get_parent().remove_child(p)
 	_body.add_child(p)

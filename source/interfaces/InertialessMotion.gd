@@ -10,9 +10,18 @@ func _init(p, data=null).(p, data):
 
 func _get_possible_actions(target):
 	if target._i('physics'):
-		return [["move_to", 0]]
+		return [["move_to", 0, [target]]]
 	elif target._i('map'):
-		return [["move_to_position", 0]]
+		var scrpos = get_viewport().get_mouse_position()
+		var origin = get_viewport().get_camera().project_ray_origin(scrpos)
+		var normal =  get_viewport().get_camera().project_ray_normal(scrpos)
+		var rc = RayCast.new()
+		GS.world.add_child(rc)
+		rc.translation = origin
+		rc.cast_to = normal*10000
+		rc.enabled = true
+		rc.force_raycast_update()
+		return [["move_to_position", 0, [rc.get_collision_point()], true]]
 
 func move_to(target):
 	assert(target._i('physics'))
@@ -21,17 +30,8 @@ func move_to(target):
 	})
 
 func move_to_position(pos):
-	var scrpos = get_viewport().get_mouse_position()
-	var origin = get_viewport().get_camera().project_ray_origin(scrpos)
-	var normal =  get_viewport().get_camera().project_ray_normal(scrpos)
-	var rc = RayCast.new()
-	GS.world.add_child(rc)
-	rc.translation = origin
-	rc.cast_to = normal*10000
-	rc.enabled = true
-	rc.force_raycast_update()
 	return _entity.fsm.switch_state("motion_moving", {
-		"target": rc.get_collision_point()
+		"target": pos
 	})
 
 func t__motion_idle__motion_moving():

@@ -21,6 +21,8 @@ func _init(p, data=null).(p, data):
 func _physics_process(delta):
 	var bodies = _damage_area.get_overlapping_bodies()
 	for body in bodies:
+		if not body.has_meta("entity"):
+			continue
 		var ent = body.get_meta("entity")
 		if not ent or not ent._i("health"):
 			continue

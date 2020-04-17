@@ -17,7 +17,7 @@ func _init(p, data=null).(p, data):
 
 func _get_possible_actions(target):
 	if _can_eat(target):
-		return [["eat", 1]]
+		return [["eat", 1, [target]]]
 	return []
 
 func eat(target):

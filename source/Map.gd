@@ -11,6 +11,14 @@ const POINTS = 10
 var piece_x = 0
 var piece_y = 0
 
+func _init():
+#	collision_layer = 0
+#	set_collision_layer_bit(GS.LAYERS.MAP, true)
+#	set_collision_mask_bit(GS.LAYERS.MAP, true)
+#	set_collision_mask_bit(GS.LAYERS.ENTITY, true)
+	#set_collision_mask_bit(GS.LAYERS.MAP, true)
+	pass
+
 func _generate(map_gen):
 	var vertices = PoolVector3Array()
 	var normals = PoolVector3Array()

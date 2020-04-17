@@ -11,7 +11,7 @@ func _init(p, data=null).(p, data):
 
 func _get_possible_actions(target):
 	if _can_gather(target):
-		return [["gather", 2]]
+		return [["gather", 2, [target]]]
 	return []
 
 # Returns whether an entity can gather from something,
