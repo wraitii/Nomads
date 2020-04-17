@@ -1,4 +1,5 @@
 extends Spatial
+class_name Entity
 
 const FSM = preload('res://source/MultiStateMachine.gd')
 const Stats = preload('res://source/Stats.gd')
@@ -50,5 +51,6 @@ func fake_setter(x):
 	assert(false, "Not implemented")
 
 func get_body():
+	assert(_i('physics'))
 	return _i('physics')._body
 

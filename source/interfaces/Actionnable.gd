@@ -3,7 +3,9 @@ extends ComponentInterface
 const _INTERFACE = "actionnable"
 
 func _init(p, data=null).(p, data):
-	assert(p._i("object_picking"))
+	# The Map is an entity, but it doesn't have object_picking.
+	if not p._i("object_picking"):
+		return
 	
 	#p._i("object_picking")._picking_area.connect("input_event", self, "_input_event")
 	p._i("object_picking")._picking_area.connect("mouse_entered", self, "_mouse_entered")

@@ -9,16 +9,29 @@ func _init(p, data=null).(p, data):
 	assert(p._i("physics"))
 
 func _get_possible_actions(target):
-	return [["move_to", 0]]
+	if target._i('physics'):
+		return [["move_to", 0]]
+	elif target._i('map'):
+		return [["move_to_position", 0]]
 
 func move_to(target):
+	assert(target._i('physics'))
 	return _entity.fsm.switch_state("motion_moving", {
-		"target": target.translation
+		"target": target.body.translation
 	})
 
 func move_to_position(pos):
+	var scrpos = get_viewport().get_mouse_position()
+	var origin = get_viewport().get_camera().project_ray_origin(scrpos)
+	var normal =  get_viewport().get_camera().project_ray_normal(scrpos)
+	var rc = RayCast.new()
+	GS.world.add_child(rc)
+	rc.translation = origin
+	rc.cast_to = normal*10000
+	rc.enabled = true
+	rc.force_raycast_update()
 	return _entity.fsm.switch_state("motion_moving", {
-		"target": pos
+		"target": rc.get_collision_point()
 	})
 
 func t__motion_idle__motion_moving():

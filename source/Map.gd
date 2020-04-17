@@ -50,9 +50,13 @@ func _generate(map_gen):
 #	body.add_child(shape)
 	m.mesh.surface_set_material(0, mat)
 	add_child(m)
+	
+	self.connect("mouse_entered", self, "mouse_entered")
+	self.connect("mouse_exited", self, "mouse_exited")
 
-func _input_event(camera, event, click_position, click_normal, shape_idx):
-	pass
+#func _input_event(camera, event, click_position, click_normal, shape_idx):
+#	if event is InputEventMouse:
+#		last_mouse_pos = click_position
 #	if event.is_action_released("object_order"):
 #		if GS.selection.empty():
 #			pass
@@ -64,3 +68,9 @@ func _input_event(camera, event, click_position, click_normal, shape_idx):
 #		GS.world.get_node('GameScene/Camera').move_to(click_position)
 #
 #	GS.selection.current_possible_action = "move_to_position"
+
+func mouse_entered():
+	GS.map_data._i('actionnable')._mouse_entered()
+
+func mouse_exited():
+	GS.map_data._i('actionnable')._mouse_exited()

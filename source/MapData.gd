@@ -1,4 +1,7 @@
-extends Node
+extends Entity
+
+## This class holds all map-related data and helpers
+# It is an Entity, more on a technicality than anything else.
 
 const PIECE = preload('Map.gd')
 
@@ -13,6 +16,11 @@ const data = [
 var noise = OpenSimplexNoise.new()
 
 func _init():
+	# for now an empty shell
+	add_interface_by_script('Map.gd')
+	# map pieces will trigger this directly.
+	add_interface_by_script('Actionnable.gd')
+	
 	# Configure
 	noise.seed = randi()
 	noise.octaves = 3
