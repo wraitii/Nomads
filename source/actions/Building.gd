@@ -33,10 +33,9 @@ func _physics_process(delta):
 
 func on_input(event):
 	if event.is_action_released("object_select"):
-		var building_plan = Entity.new()
-		GS.world.add_child(building_plan)
-		building_plan.add_interface_by_script("Body.gd", { "scene": "BuildingPlan" })
-		building_plan._i("physics")._body.translation = GS.camera.raycast()
+		# TODO: plot down building plans instead of actual buildings
+		var building = Entity.new().from_ress(order_data)
+		building._i("physics")._body.translation = GS.camera.raycast()
 
 		return pop_if_active()
 	elif event.is_action_released("object_order"):

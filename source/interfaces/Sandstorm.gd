@@ -12,7 +12,7 @@ var _sub_storms = []
 var _vel = Vector2(0, 0)
 
 func _init(p, data=null).(p, data):
-	p.add_interface_by_script("Body.gd", { "type": Spatial })
+	p.add_interface_by_script("Body", { "type": Spatial })
 	p._i('physics')._move_by(rand_range(-5, 5),rand_range(-5, 5))
 	
 	var angle = rand_range(PI, -PI)
@@ -22,10 +22,11 @@ func _init(p, data=null).(p, data):
 	var height = rand_range(3,6)
 	for x in width:
 		for z in height:
-			var sub_storm = _Entity.new()
-			p.add_child(sub_storm)
-			sub_storm.add_interface_by_script("Body.gd", { "scene": "SandStorm" })
-			sub_storm.add_interface_by_script("TrampleDamage.gd")
+			var sub_storm = _Entity.new(p)
+			sub_storm.add_interface_by_script("Body", { "scene": "SandStorm" })
+			sub_storm.add_interface_by_script("TrampleDamage", { "damage": {
+				"sandstorm": 1
+			}})
 			sub_storm._i("physics")._move_by(x*10 + rand_range(-5, 5), z * 10 + rand_range(-5, 5))
 			_sub_storms.append(sub_storm)
 

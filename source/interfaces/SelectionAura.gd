@@ -6,7 +6,7 @@ var _selection_aura = null
 var _select = 0
 
 func _init(p, data=null).(p, data):
-	assert(p._i("object_picking"))
+	assert(p._i("actionnable"))
 	
 	_selection_aura = CSGSphere.new()
 	_selection_aura.radius = 2.5

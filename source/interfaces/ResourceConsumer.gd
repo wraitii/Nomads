@@ -76,7 +76,7 @@ class Idle extends 'res://source/MSMState.gd':
 			return fsm.ORDER.IGNORE
 		if not itf("health"):
 			return fsm.ORDER.IGNORE
-		itf("health")._take_damage(1  / (1.0/delta));
+		itf("health")._take_damage({ "starvation": 1*delta });
 		return fsm.ORDER.IGNORE
 
 class AIEating extends 'res://source/MSMState.gd':

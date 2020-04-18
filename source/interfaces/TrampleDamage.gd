@@ -6,8 +6,12 @@ extends ComponentInterface
 const _INTERFACE = "trample_damage"
 
 var _damage_area = null
+var _dps : Dictionary = {}
 
 func _init(p, data=null).(p, data):
+	
+	_dps = data.damage
+	
 	var _body = p.get_parent()
 	assert (_body is Spatial)
 	_damage_area = Area.new()
@@ -26,5 +30,5 @@ func _physics_process(delta):
 		var ent = body.get_meta("entity")
 		if not ent or not ent._i("health"):
 			continue
-		ent._i("health")._take_damage(1.0 / (1.0/delta))
+		ent._i("health")._take_damage(Damage.mul(_dps, delta))
 

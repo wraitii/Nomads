@@ -17,7 +17,7 @@ func _get_possible_actions(target):
 func move_to(target):
 	assert(target._i('physics'))
 	return _entity.fsm.switch_state("motion_moving", {
-		"target": target.body.translation
+		"target": target._i('physics')._body.translation
 	})
 
 func move_to_position(pos):
@@ -71,14 +71,15 @@ class Moving extends 'res://source/MSMState.gd':
 		if target == null:
 			return fsm.ORDER.IGNORE
 		
-		if (target - parent.body.translation).length() < 2:
+		var body = itf('physics')._body
+		if (target - body.translation).length() < 2:
 			var ret = fsm.process("on_at_destination")
 			if ret == fsm.ORDER.IGNORE:
 				pop_if_active()
 			return fsm.ORDER.IGNORE
-		var dir = (target - parent.body.translation).normalized() * 10
-		parent.body.move_and_collide(Vector3(0, -1, 0), false)
-		parent.body.move_and_slide_with_snap(dir, Vector3(0,1,0), Vector3(0,1,0), false, 4, 1.0, false)
+		var dir = (target - body.translation).normalized() * 10
+		body.move_and_collide(Vector3(0, -1, 0), false)
+		body.move_and_slide_with_snap(dir, Vector3(0,1,0), Vector3(0,1,0), false, 4, 1.0, false)
 		
 		return fsm.ORDER.IGNORE
 

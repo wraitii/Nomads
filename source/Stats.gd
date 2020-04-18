@@ -8,13 +8,17 @@ func add(id, x):
 	_modifiers[id] = Modifier.new(x)
 	stats._compute_stats(_modifiers)
 
+func remove(id):
+	_modifiers.erase(id)
+	stats._compute_stats(_modifiers)
+
 func _get(x):
 	if x == "_modifiers":
 		return _modifiers
 	elif x in stats:
 		return stats[x]
 	else:
-		return null
+		return false
 
 class Modifier:
 	var definition = {} setget _set_def, _get_def

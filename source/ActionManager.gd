@@ -38,11 +38,6 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton and not event.pressed:
 		var e = hovered
 		var t = OS.get_ticks_msec()
-		print("click at " + str(t))
-		print(e)
-		print(last_click_ent)
-		print(t)
-		print(last_click_time)
 		if e == last_click_ent and last_click_time and t - last_click_time < 300:
 			# TODO: handle on my own
 			event.doubleclick = true

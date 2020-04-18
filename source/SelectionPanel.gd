@@ -15,6 +15,8 @@ func update():
 	tx += "Selected:\n"
 	for item in GS.selection.selection:
 		tx += str(item) + '\n'
+		for _i in item.stats._modifiers:
+			tx += '  ' + str(_i) + '\n'
 		for _i in item._interfaces:
 			var db = item._interfaces[_i]._debug()
 			if db:

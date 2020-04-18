@@ -12,11 +12,21 @@ var _interfaces = {}
 var fsm = FSM.new(self)
 var stats = Stats.new()
 
-func _init():
+func _init(parent = null):
+	if parent:
+		parent.add_child(self)
+	else:
+		GS.world.add_child(self)
 	add_child(fsm)
 
+func from_ress(template):
+	var res = load('res://data/entity_templates/' + template + '.gd').new()
+	for itf in res.interfaces:
+		add_interface_by_script(itf, res.interfaces[itf])
+	return self
+
 func add_interface_by_script(itf_name, data=null):
-	add_interface(load("res://source/interfaces/" + itf_name), data)
+	add_interface(load("res://source/interfaces/" + itf_name + '.gd'), data)
 
 func add_interface(itf, data=null):
 	_interfaces[itf._INTERFACE] = itf.new(self, data)
@@ -42,15 +52,3 @@ func destroy():
 		_interfaces[_i]._deinit()
 	get_parent().call_deferred("remove_child", self)
 	call_deferred("queue_delete", self)
-
-## Below are some useful shortcuts
-
-var body setget fake_setter, get_body
-
-func fake_setter(x):
-	assert(false, "Not implemented")
-
-func get_body():
-	assert(_i('physics'))
-	return _i('physics')._body
-

@@ -17,9 +17,9 @@ var noise = OpenSimplexNoise.new()
 
 func _init():
 	# for now an empty shell
-	add_interface_by_script('Map.gd')
+	add_interface_by_script('Map')
 	# map pieces will trigger this directly.
-	add_interface_by_script('Actionnable.gd')
+	add_interface_by_script('Actionnable')
 	
 	# Configure
 	noise.seed = randi()

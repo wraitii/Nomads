@@ -3,8 +3,7 @@ extends Node
 const Entity = preload('res://source/Entity.gd')
 
 func _init():
-	var ent = Entity.new()
-	add_child(ent)
+	var ent = Entity.new(self)
 	ent.set_name("test_node")
 
 	print_tree_pretty()

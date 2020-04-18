@@ -27,9 +27,9 @@ func update():
 		n.get_node("Building").text = building
 		n.get_node("Building").set_meta("building", building)
 		n.visible = true
-		n.get_node("Building").connect("button_up", self, "on_click", [self])
+		n.get_node("Building").connect("button_up", self, "on_click", [n.get_node("Building")])
 		$GridContainer.add_child(n)
 
 func on_click(button):
 	var bd = button.get_meta("building")
-	GS.action.action_state.switch_state("gui_action_building", [bd])
+	GS.action.action_state.switch_state("gui_action_building", bd)
