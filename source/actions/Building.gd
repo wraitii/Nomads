@@ -12,22 +12,10 @@ func get_class():
 func tooltip():
 	return "Left-click to build"
 
-func get_mouse_pos():
-	var scrpos = GS.world.get_viewport().get_mouse_position()
-	var origin = GS.world.get_viewport().get_camera().project_ray_origin(scrpos)
-	var normal =  GS.world.get_viewport().get_camera().project_ray_normal(scrpos)
-	var rc = RayCast.new()
-	GS.world.add_child(rc)
-	rc.translation = origin
-	rc.cast_to = normal*10000
-	rc.enabled = true
-	rc.force_raycast_update()
-	return rc.get_collision_point()
-
 func enter_state():
 	preview = CSGCylinder.new()
 	preview.radius = 4.0
-	preview.translation = get_mouse_pos()
+	preview.translation = GS.camera.raycast()
 	GS.world.add_child(preview)
 	return fsm.ORDER.OK
 
@@ -40,7 +28,7 @@ func leave_state():
 func _physics_process(delta):
 	if not preview:
 		return fsm.ORDER.IGNORE
-	preview.translation = get_mouse_pos()
+	preview.translation = GS.camera.raycast()
 	return fsm.ORDER.IGNORE
 
 func on_input(event):
@@ -48,7 +36,7 @@ func on_input(event):
 		var building_plan = Entity.new()
 		GS.world.add_child(building_plan)
 		building_plan.add_interface_by_script("Body.gd", { "scene": "BuildingPlan" })
-		building_plan._i("physics")._body.translation = get_mouse_pos()
+		building_plan._i("physics")._body.translation = GS.camera.raycast()
 
 		return pop_if_active()
 	elif event.is_action_released("object_order"):

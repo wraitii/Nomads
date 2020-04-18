@@ -11,5 +11,6 @@ enum LAYERS {
 var selection = Sel.new()
 var action = ActMgr.new()
 var world = null
+var camera = null
 
 var map_data = null

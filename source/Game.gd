@@ -21,6 +21,8 @@ func _ready():
 	
 	GS.world = $GameGUI/VC/Viewport
 	
+	GS.world.add_child(load('res://source/GameScene.tscn').instance())
+	
 	GS.world.add_child(GS.action)
 
 	GS.map_data = MapData.new()

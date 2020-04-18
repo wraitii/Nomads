@@ -23,12 +23,15 @@ func _physics_process(delta):
 func on_input(event):
 	if event.is_action_released("object_select"):
 		if hovered_itf("map"):
-			GS.selection.clear()
+			if event.doubleclick:
+				GS.camera.move_to(GS.camera.raycast())
+			else:
+				GS.selection.clear()
 			return fsm.ORDER.OK
 		if not hovered_itf("selection_aura"):
 			return fsm.ORDER.IGNORE
 		if event.doubleclick:
-			GS.world.get_node('GameScene/Camera').track = GS.action.hovered._entity
+			GS.camera.track = GS.action.hovered._entity
 		else:
 			GS.selection.replace(GS.action.hovered._entity)
 		return fsm.ORDER.OK

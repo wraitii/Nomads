@@ -2,13 +2,11 @@ extends 'res://source/MSMState.gd'
 class_name GUIAction
 
 ## Common interface to define actions that the player can do.
-# This provides two conveniences:
-# - hovered keeps track of the object being hovered
 # - selection_actions keeps tracks of possible actions over objects.
+# Refer to the ActionManager to get the currently hovered body.
 
 # Ordered list of possible selection actions
 var selection_actions = []
-
 
 func get_class():
 	return ["gui_action", "__"]

@@ -12,16 +12,7 @@ func _get_possible_actions(target):
 	if target._i('physics'):
 		return [["move_to", 0, [target]]]
 	elif target._i('map'):
-		var scrpos = get_viewport().get_mouse_position()
-		var origin = get_viewport().get_camera().project_ray_origin(scrpos)
-		var normal =  get_viewport().get_camera().project_ray_normal(scrpos)
-		var rc = RayCast.new()
-		GS.world.add_child(rc)
-		rc.translation = origin
-		rc.cast_to = normal*10000
-		rc.enabled = true
-		rc.force_raycast_update()
-		return [["move_to_position", 0, [rc.get_collision_point()], true]]
+		return [["move_to_position", 0, [GS.camera.raycast()], true]]
 
 func move_to(target):
 	assert(target._i('physics'))

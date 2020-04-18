@@ -17,6 +17,9 @@ var action_state = FSM.new(self)
 # This is the 'actionnable' interface of the object being hovered.
 var hovered = null
 
+# Unhandled click doesn't do double-click so re-implement manually.
+var last_click_ent = null
+var last_click_time = null
 
 func _init():
 	var actions = Directory.new()
@@ -32,7 +35,23 @@ func _enter_tree():
 	GS.selection.connect("selection_changed", self, "on_selection_change")
 
 func _unhandled_input(event):
-	action_state.process('on_input', [event])
+	if event is InputEventMouseButton and not event.pressed:
+		var e = hovered
+		var t = OS.get_ticks_msec()
+		print("click at " + str(t))
+		print(e)
+		print(last_click_ent)
+		print(t)
+		print(last_click_time)
+		if e == last_click_ent and last_click_time and t - last_click_time < 300:
+			# TODO: handle on my own
+			event.doubleclick = true
+		last_click_ent = e
+		last_click_time = t
+	
+	var handling = action_state.process('on_input', [event])
+	if handling != FSM.ORDER.IGNORE:
+		accept_event()
 
 func set_hovered(hov):
 	hovered = hov
