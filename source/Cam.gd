@@ -22,6 +22,7 @@ func _lookat_delta():
 	return Vector3(-1, 1, -1) * zoom_level
 
 func _enter_tree():
+	cull_mask=1
 	screencast = RayCast.new()
 	screencast.enabled = true
 	GS.world.add_child(screencast)
@@ -54,7 +55,8 @@ func _physics_process(delta):
 	if not track:
 		look_at_from_position(position + basis.xform(_lookat_delta()), position, Vector3(0,1,0))
 	else:
-		look_at_from_position(track.body.translation + basis.xform(_lookat_delta()), track.body.translation, Vector3(0,1,0))
+		var ps = track._i('physics')._body.translation
+		look_at_from_position(ps + basis.xform(_lookat_delta()), ps, Vector3(0,1,0))
 
 func _unhandled_input(event):
 	if event is InputEventPanGesture:

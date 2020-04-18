@@ -18,10 +18,20 @@ func _ready():
 	cl = InputEventKey.new()
 	cl.scancode = KEY_C
 	InputMap.action_add_event("create_food", cl)
+
+	InputMap.add_action("debug")
+	cl = InputEventKey.new()
+	cl.scancode = KEY_D
+	InputMap.action_add_event("debug", cl)
+
 	
 	GS.world = $GameGUI/VC/Viewport
 	
 	GS.world.add_child(load('res://source/GameScene.tscn').instance())
+	
+	var pnode = load('res://source/PathfinderNode.tscn').instance()
+	pnode.add_to_group("PathfinderNode")
+	GS.world.add_child(pnode)
 	
 	GS.world.add_child(GS.action)
 
@@ -55,6 +65,12 @@ func _ready():
 	ss.add_interface_by_script("Sandstorm")
 	
 func _unhandled_key_input(event):
+	if event.is_action_released('debug'):
+		var nodes = get_tree().get_nodes_in_group("PathfinderNode")
+		for node in nodes:
+			node.get_node("Debug").visible = !node.get_node("Debug").visible
+		return
+
 	if not event.is_action_released('create_food'):
 		return
 	

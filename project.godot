@@ -38,6 +38,11 @@ _global_script_classes=[ {
 "class": "GUIAction",
 "language": "GDScript",
 "path": "res://source/GUIAction.gd"
+}, {
+"base": "Reference",
+"class": "SimpleGridPathfinder",
+"language": "GDScript",
+"path": "res://source/SimpleGridPathfinder.gd"
 } ]
 _global_script_class_icons={
 "ComponentInterface": "",
@@ -45,7 +50,8 @@ _global_script_class_icons={
 "DamageType": "",
 "Entity": "",
 "EntityDef": "",
-"GUIAction": ""
+"GUIAction": "",
+"SimpleGridPathfinder": ""
 }
 
 [application]

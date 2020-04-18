@@ -59,6 +59,11 @@ func _generate(map_gen):
 	m.mesh.surface_set_material(0, mat)
 	add_child(m)
 	
+	var collision_copy = m.duplicate()
+	collision_copy.material_override = load('res://data/materials/map_collision.tres')
+	collision_copy.layers = 2
+	add_child(collision_copy)
+	
 	self.connect("mouse_entered", self, "mouse_entered")
 	self.connect("mouse_exited", self, "mouse_exited")
 
